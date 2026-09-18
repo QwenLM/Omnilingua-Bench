@@ -1,0 +1,236 @@
+{
+  "benchmark": "Omnilingua-Bench",
+  "schema_version": "0.1.0",
+  "release_status": "draft_partial_manifest_release",
+  "released_manifests_note": "Omnilingua-LongASR、Omnilingua-LongQA 与 Omnilingua-MSpeaker 已发布 test 数据集（仅标注与媒体引用，不含媒体文件；LongASR/LongQA 用相对媒体路径，MSpeaker 用 source_url 引用原始视频区间）；Omnilingua-MaXIFE 已发布合成语音数据目录（Omnilingua-MaXIFE/，TTS 合成、含媒体文件；文本内容 MIT、合成语音 CC BY-NC 4.0）",
+  "source_coverage_verified_on": "2026-09-18",
+  "source_coverage_basis": "源 JSONL 清单全量统计；Omnilingua-MSpeaker 已改用只含公开 URL 索引的 open benchmark 清单，不含媒体文件；未核实媒体授权与实际可访问性，不代表正式发布数据集",
+  "source_language_union": ["ar", "de", "en", "es", "fr", "hi", "id", "it", "ja", "ko", "pt", "ru", "th", "tr", "vi", "zh"],
+  "source_record_count": 12356,
+  "supported_coverage_confirmed_on": "2026-09-18",
+  "supported_coverage_basis": "支持语种由维护者确认；source_record_count 按已有源清单的对应语言计数求和，不代表正式发布规模；音视频轨道与音频轨道共用同一批源视频（source_url 即含画面的原始视频），覆盖同为 6 语种、297 条。已发布数据集的实际条数与时长见各子集 released_manifest，与本层 source_* 口径不可混用",
+  "supported_language_union": ["ar", "de", "en", "es", "fr", "hi", "id", "it", "ja", "ko", "pt", "ru", "th", "tr", "vi", "zh"],
+  "supported_source_record_count": 10857,
+  "subsets": [
+    {
+      "name": "Omnilingua-LongASR",
+      "supported_coverage": {
+        "language_count": 10,
+        "languages": ["zh", "en", "es", "fr", "ja", "ko", "id", "ru", "ar", "th"],
+        "source_record_count": 135
+      },
+      "task": "long_audio_asr",
+      "output": "text",
+      "tracks": {
+        "audio": {"status": "source_verified", "required_media": ["audio"], "allowed_media": ["audio"]}
+      },
+      "source_coverage": {
+        "kind": "same_language_transcription",
+        "language_count": 10,
+        "language_counts": {"ar": 10, "en": 10, "es": 10, "fr": 19, "id": 12, "ja": 18, "ko": 14, "ru": 10, "th": 15, "zh": 17},
+        "sample_count": 135,
+        "duration_basis": "135 条清单的音频 end-start；未经音频解码复核",
+        "total_hours": 129.93004,
+        "min_seconds": 1833.31,
+        "max_seconds": 12000.261
+      },
+      "source_file": "内部源清单（未公开发布）",
+      "source_sha256": "4d508a6061692592824949f59586bdd42525d9f332b7d06b1c1f518c1df309c0",
+      "released_manifest": {
+        "path": "Omnilingua-LongASR/OmniLingua-LongAudioASR_v202609_public.jsonl",
+        "subset_version": "v202609",
+        "split": "test",
+        "sample_count": 135,
+        "sha256": "80b36a799b88d8b5d38d5feb259a3a4f3ab4d8426688994f3d1d2106ee521df2",
+        "media_included": false,
+        "built_from": {
+          "file": "OmniLingua-LongAudioASR_v202609_public.jsonl",
+          "sha256": "a9c64f251c4559f2968af84ed129fdbb1c7acf27302424560569b24de259e625"
+        },
+        "language_counts": {"ar": 10, "en": 10, "es": 10, "fr": 19, "id": 12, "ja": 18, "ko": 14, "ru": 10, "th": 15, "zh": 17},
+        "duration_basis": "135 条清单的音频 end-start；未经音频解码复核",
+        "total_hours": 129.9398,
+        "min_seconds": 1833.31,
+        "max_seconds": 12002.16
+      },
+      "metrics": ["wer", "empty_rate", "repetition_rate", "truncation_rate"],
+      "license": "CC BY-NC 4.0"
+    },
+    {
+      "name": "Omnilingua-LongQA",
+      "alias": "MuLA-Bench",
+      "supported_coverage": {
+        "language_count": 16,
+        "languages": ["ar", "de", "en", "es", "fr", "hi", "id", "it", "ja", "ko", "pt", "ru", "th", "tr", "vi", "zh"],
+        "source_record_count": 5038
+      },
+      "task": "long_audio_qa",
+      "output": "text",
+      "tracks": {
+        "audio_text": {"status": "source_verified", "required_media": ["audio"], "allowed_media": ["audio"]}
+      },
+      "source_coverage": {
+        "kind": "source_language_labels_not_translation_directions",
+        "language_count": 16,
+        "language_counts": {"ar": 313, "de": 304, "en": 347, "es": 316, "fr": 338, "hi": 290, "id": 324, "it": 304, "ja": 320, "ko": 333, "pt": 306, "ru": 308, "th": 309, "tr": 301, "vi": 288, "zh": 337},
+        "sample_count": 5038,
+        "unique_audio_id_count": 1769,
+        "question_type_counts": {"completeness_fact": 1891, "long_range": 993, "reasoning": 1146, "time_localization": 1008}
+      },
+      "source_file": "内部源清单（未公开发布）",
+      "source_sha256": "fa056fada17b1ba1043854b74ddba90ec29a8040309628942924c1b205827ced",
+      "released_manifest": {
+        "path": "MuLA-Bench/MuLA-Bench_v202609_public.jsonl",
+        "subset_version": "v202609",
+        "split": "test",
+        "sample_count": 5029,
+        "sha256": "7e5b9e6d00813697adcfabbd736bc3165d8afe2467efc7af4089b50aafe88020",
+        "media_included": false,
+        "built_from": {
+          "file": "内部交付表格（未公开发布）",
+          "sha256": "065b7c3f478e4b2ae3e29a43f8a2df0ac3bbc083a31f2a54855035e93a4f8f34",
+          "note": "维护者交付的发布版；相对源清单的 5038 条剔除 9 条（ja，含视频 BFImGhFGrSM 相关 8 题）后为 5029 条；modality 由源表的中文取值映射为 acoustic／semantic"
+        },
+        "language_count": 16,
+        "language_counts": {"ar": 313, "de": 304, "en": 347, "es": 316, "fr": 338, "hi": 290, "id": 324, "it": 304, "ja": 311, "ko": 333, "pt": 306, "ru": 308, "th": 309, "tr": 301, "vi": 288, "zh": 337},
+        "unique_audio_count": 1768,
+        "duration_basis": "1768 个不同音频用 ffprobe 逐文件解码读取的时长；按去重音频求和，不按问答条数重复计",
+        "total_hours": 1370.95398,
+        "min_seconds": 1206.288,
+        "max_seconds": 10800.072,
+        "question_type_counts": {"completeness_fact": 1889, "long_range": 991, "reasoning": 1144, "time_localization": 1005},
+        "judge_type_counts": {"exhaustive_list": 79, "multi_slot": 394, "reasoning": 1143, "single_fact": 2454, "time_order": 387, "time_point_program": 572},
+        "difficulty_counts": {"easy": 2045, "hard": 2984},
+        "modality_counts": {"acoustic": 1193, "semantic": 3836},
+        "topic_counts": {"belief": 635, "entertainment": 594, "howto": 591, "knowledge": 640, "lifestyle": 674, "narrative": 630, "news": 637, "product": 628}
+      },
+      "metrics": ["answer_score", "rubric_score"],
+      "license": "CC BY-NC 4.0"
+    },
+    {
+      "name": "Omnilingua-MSpeaker",
+      "supported_coverage": {
+        "track": "audio",
+        "language_count": 6,
+        "languages": ["es", "fr", "ja", "ko", "ru", "th"],
+        "source_record_count": 297
+      },
+      "task": "speaker_attributed_asr",
+      "output": "segments",
+      "tracks": {
+        "audio": {"status": "source_verified", "required_media": ["audio"], "allowed_media": ["audio"]},
+        "audiovisual": {
+          "status": "shares_audio_source",
+          "required_media": ["audio", "video"],
+          "allowed_media": ["audio", "video"],
+          "source_coverage": {"language_count": 6, "language_counts": {"es": 50, "fr": 47, "ja": 50, "ko": 50, "ru": 50, "th": 50}, "sample_count": 297},
+          "source_file": "内部源清单（未公开发布）",
+          "source_sha256": "5b7519b554c9df79de734879411b975365edafd97ecd3e61ebda777274e40821",
+          "note": "与 audio 轨道共用同一批源视频；source_url 即含画面的原始视频，按相同区间下载即可获得视频轨道。视觉使用协议（帧采样、音画同步、字幕可见性）待定"
+        }
+      },
+      "source_coverage": {
+        "track": "audio",
+        "kind": "same_language_transcription",
+        "media_reference": "source_url_only",
+        "language_count": 6,
+        "language_counts": {"es": 50, "fr": 47, "ja": 50, "ko": 50, "ru": 50, "th": 50},
+        "sample_count": 297,
+        "unique_source_url_count": 105,
+        "duration_basis": "297 条清单的 end_time-start_time；未经音频解码复核",
+        "total_hours": 26.2717,
+        "min_seconds": 25.0,
+        "max_seconds": 1706.07,
+        "domain_language_counts": {
+          "social_media": {"es": 50, "fr": 47, "ja": 50, "ko": 50, "ru": 50, "th": 50}
+        }
+      },
+      "source_file": "内部源清单（未公开发布）",
+      "source_sha256": "5b7519b554c9df79de734879411b975365edafd97ecd3e61ebda777274e40821",
+      "released_manifest": {
+        "path": "Omnilingua-MSpeaker/Omnilingua-MSpeaker_v202609_public.jsonl",
+        "track": "audio",
+        "subset_version": "v202609",
+        "split": "test",
+        "sample_count": 297,
+        "sha256": "a9088cea469d4aeb4ece58fbef2829c71a4bad0c1700d81c3e8e59472b67bcd8",
+        "media_included": false,
+        "media_reference": "source_url_only",
+        "built_from": {
+          "file": "内部源清单（未公开发布）",
+          "sha256": "5b7519b554c9df79de734879411b975365edafd97ecd3e61ebda777274e40821",
+          "note": "open benchmark 清单经内部构建脚本转为统一格式；音频只以 source_url 引用原始视频区间，不含媒体文件"
+        },
+        "language_count": 6,
+        "language_counts": {"es": 50, "fr": 47, "ja": 50, "ko": 50, "ru": 50, "th": 50},
+        "unique_source_url_count": 105,
+        "duration_basis": "297 条清单的 source_end_sec-source_start_sec；未经音频解码复核",
+        "total_hours": 26.2717,
+        "min_seconds": 25.0,
+        "max_seconds": 1706.07
+      },
+      "metrics": ["tcpwer", "cpwer", "der"],
+      "license": "CC BY-NC 4.0"
+    },
+    {
+      "name": "Omnilingua-MaXIFE",
+      "supported_coverage": {
+        "language_count": 7,
+        "languages": ["fr", "id", "ja", "ko", "it", "pt", "tr"],
+        "resource_group": "中高资源",
+        "source_record_count": 5387
+      },
+      "task": "instruction_following",
+      "output": "text",
+      "tracks": {
+        "audio": {"status": "source_verified", "required_media": ["audio"], "allowed_media": ["audio"]},
+        "audio_text": {"status": "source_verified", "required_media": ["audio"], "allowed_media": ["audio"]}
+      },
+      "source_coverage": {
+        "kind": "source_language_labels_not_translation_directions",
+        "language_count": 9,
+        "language_counts": {"en": 725, "fr": 755, "id": 773, "it": 766, "ja": 769, "ko": 781, "pt": 753, "tr": 790, "zh": 774},
+        "sample_count": 6886,
+        "input_part_combinations": {"audio": 6559, "audio+text": 327},
+        "translation_direction_count": null
+      },
+      "instruction_categories": ["citation", "content", "emoji", "format", "keywords", "language_switch", "length", "marks", "repeat", "style", "tone"],
+      "instruction_type_count": 47,
+      "source_file": "内部源清单（未公开发布）",
+      "source_sha256": "5f9e8b1681b15de1329d23c2085b5f6806c10625617fe4a53be3239fddbb9922",
+      "metrics": ["constraint_score", "all_constraints_pass_rate"],
+      "released_manifest": {
+        "path": "Omnilingua-MaXIFE/Omnilingua-MaXIFE_v202609_public.jsonl",
+        "track": "audio/audio_text",
+        "subset_version": "v202609",
+        "split": "test",
+        "sample_count": 5387,
+        "sha256": "831588bc0abbe4227348aebd182fa53e392ee2ef033c772b68c522e383befb42",
+        "media_included": true,
+        "media_reference": "path_relative_to_subset_root",
+        "audio": "24 kHz mono WAV，由商用云端 TTS 模型合成；源自文本 MaXIFE 单语子集；随仓库以 git LFS 发布",
+        "built_from": {
+          "note": "7 个逐语种 parquet 由 tools/build_maxife_manifest.py 转为统一清单后删除，此处保留 sha256 以便溯源；媒体文件名中的 ':' 同时改为 '_'",
+          "files": [
+            {"file": "fr/maxife_omni_fr.parquet", "sha256": "1d5bc76b042cee02ea44a4462a0a2c35459d868a4d91262301ed9aa17c143ad8"},
+            {"file": "id/maxife_omni_id.parquet", "sha256": "a27323a519519749ec98a206ec72f4205ee572555ef321222ae43334c1e53ff5"},
+            {"file": "it/maxife_omni_it.parquet", "sha256": "ee4879d683e516c28af115158ea32b87b0f9f29a3895090e5de8006fd048cec1"},
+            {"file": "ja/maxife_omni_ja.parquet", "sha256": "13b9942af5bef92ac1cac33f6025367fa7a3fbe0d693ee558e9bbb57b9d1f026"},
+            {"file": "ko/maxife_omni_ko.parquet", "sha256": "b699d259a9aaefcde6e4d3efc4a2b71e4d01329a758d6c486e1136dfa0cd1818"},
+            {"file": "pt/maxife_omni_pt.parquet", "sha256": "c2bc5c27a4b4443a6a0131a699d08a26cf365cf9fb801b2e95cf72ec2da1e512"},
+            {"file": "tr/maxife_omni_tr.parquet", "sha256": "3744c1f4312ed6ca538a63c5e303ffd642a26f13f7ef0afd65216da774ccf20d"}
+          ]
+        },
+        "language_count": 7,
+        "language_counts": {"fr": 755, "id": 773, "it": 766, "ja": 769, "ko": 781, "pt": 753, "tr": 790},
+        "track_counts": {"audio": 5166, "audio_text": 221},
+        "instruction_type_count": 47,
+        "duration_basis": "5387 条清单的 WAV 头解析时长；未经音频解码复核",
+        "total_hours": 30.73793,
+        "min_seconds": 3.64,
+        "max_seconds": 78.96
+      },
+      "license": "文本内容 MIT（上游 MaXIFE）；合成语音 CC BY-NC 4.0"
+    }
+  ]
+}

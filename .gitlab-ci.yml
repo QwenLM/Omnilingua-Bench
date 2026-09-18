@@ -1,0 +1,16 @@
+image: python:3.11-slim
+
+variables:
+  GIT_LFS_SKIP_SMUDGE: "1"
+
+stages:
+  - test
+
+validate:
+  stage: test
+  script:
+    - python -m pip install -r requirements.txt
+    - python tools/validate.py Omnilingua-LongASR/OmniLingua-LongAudioASR_v202609_public.jsonl --require-reference
+    - python tools/validate.py MuLA-Bench/MuLA-Bench_v202609_public.jsonl --require-reference
+    - python tools/validate.py Omnilingua-MSpeaker/Omnilingua-MSpeaker_v202609_public.jsonl --require-reference
+    - python tools/validate.py Omnilingua-MaXIFE/Omnilingua-MaXIFE_v202609_public.jsonl --require-reference

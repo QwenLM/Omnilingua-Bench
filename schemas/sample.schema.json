@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Omnilingua-Bench 统一样本 v0.1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "id", "subset", "subset_version", "split", "task", "track", "languages", "input", "metadata"],
+  "properties": {
+    "schema_version": {"const": "0.1.0"},
+    "id": {"$ref": "#/$defs/nonempty"},
+    "subset": {"enum": ["Omnilingua-LongASR", "Omnilingua-LongQA", "Omnilingua-MSpeaker", "Omnilingua-MaXIFE"]},
+    "subset_version": {"$ref": "#/$defs/nonempty"},
+    "split": {"enum": ["example", "dev", "test"]},
+    "task": {"enum": ["long_audio_asr", "long_audio_qa", "speaker_attributed_asr", "instruction_following"]},
+    "track": {"enum": ["audio", "audio_text", "audiovisual"]},
+    "languages": {
+      "type": "object", "additionalProperties": false,
+      "required": ["source", "target", "instruction"],
+      "properties": {
+        "source": {"$ref": "#/$defs/languages"},
+        "target": {"$ref": "#/$defs/languages"},
+        "instruction": {"$ref": "#/$defs/languages"}
+      }
+    },
+    "input": {
+      "type": "object", "additionalProperties": false,
+      "required": ["messages", "media"],
+      "properties": {
+        "messages": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/message"}},
+        "media": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/media"}}
+      }
+    },
+    "reference": {
+      "type": "object", "additionalProperties": false, "minProperties": 1,
+      "properties": {
+        "text": {"$ref": "#/$defs/nonempty"},
+        "answers": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/nonempty"}},
+        "segments": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/segment"}},
+        "constraints": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/constraint"}},
+        "rubric": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/nonempty"}},
+        "evidence_text": {"$ref": "#/$defs/nonempty"},
+        "instruction_transcript": {"$ref": "#/$defs/nonempty"}
+      }
+    },
+    "metadata": {
+      "type": "object", "required": ["synthetic", "license"],
+      "properties": {
+        "synthetic": {"type": "boolean"},
+        "license": {"$ref": "#/$defs/nonempty"},
+        "domain": {"$ref": "#/$defs/nonempty"},
+        "source_id": {"$ref": "#/$defs/nonempty"},
+        "question_type": {"enum": ["completeness_fact", "long_range", "reasoning", "time_localization"]},
+        "paired_id": {"$ref": "#/$defs/nonempty"}
+      }
+    }
+  },
+  "$defs": {
+    "nonempty": {"type": "string", "minLength": 1, "pattern": "\\S"},
+    "language": {"type": "string", "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$"},
+    "languages": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"$ref": "#/$defs/language"}},
+    "message": {
+      "type": "object", "additionalProperties": false,
+      "required": ["role", "content"],
+      "properties": {
+        "role": {"enum": ["system", "user", "assistant"]},
+        "content": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/part"}}
+      }
+    },
+    "part": {
+      "oneOf": [
+        {
+          "type": "object", "additionalProperties": false, "required": ["type", "text"],
+          "properties": {"type": {"const": "text"}, "text": {"$ref": "#/$defs/nonempty"}}
+        },
+        {
+          "type": "object", "additionalProperties": false, "required": ["type", "media_id"],
+          "properties": {"type": {"enum": ["audio", "video", "image"]}, "media_id": {"$ref": "#/$defs/nonempty"}}
+        }
+      ]
+    },
+    "media": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "type"],
+      "properties": {
+        "id": {"$ref": "#/$defs/nonempty"},
+        "type": {"enum": ["audio", "video", "image"]},
+        "path": {"$ref": "#/$defs/nonempty"},
+        "source_url": {"type": "string", "pattern": "^https://\\S+$"},
+        "source_start_sec": {"type": "number", "minimum": 0},
+        "source_end_sec": {"type": "number", "exclusiveMinimum": 0},
+        "duration_sec": {"type": "number", "exclusiveMinimum": 0},
+        "time_offset_sec": {"type": "number", "minimum": 0},
+        "sync_group": {"$ref": "#/$defs/nonempty"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "sample_rate_hz": {"type": "integer", "minimum": 1},
+        "fps": {"type": "number", "exclusiveMinimum": 0}
+      },
+      "oneOf": [{"required": ["path"]}, {"required": ["source_url", "source_start_sec", "source_end_sec"]}],
+      "allOf": [{"if": {"properties": {"type": {"enum": ["audio", "video"]}}}, "then": {"required": ["duration_sec"]}}]
+    },
+    "segment": {
+      "type": "object", "additionalProperties": false,
+      "required": ["media_id", "start_sec", "end_sec", "speaker_id", "text"],
+      "properties": {
+        "media_id": {"$ref": "#/$defs/nonempty"},
+        "start_sec": {"type": "number", "minimum": 0},
+        "end_sec": {"type": "number", "exclusiveMinimum": 0},
+        "speaker_id": {"type": "string", "pattern": "^speaker_[0-9]+$"},
+        "text": {"$ref": "#/$defs/nonempty"},
+        "language": {"$ref": "#/$defs/language"}
+      }
+    },
+    "constraint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "params"],
+      "properties": {
+        "id": {"type": "string", "pattern": "^[a-z_]+:[a-z_]+$"},
+        "params": {"type": "object"}
+      }
+    }
+  }
+}

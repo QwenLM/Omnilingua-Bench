@@ -1,0 +1,20 @@
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+media/
+data/
+outputs/
+*.wav
+*.mp3
+*.flac
+*.mp4
+*.webm
+*.tar*
+*.zip
+.env
+.env.*
+*.key
+
+# Released as Git LFS objects, so the *.wav rule above must not hide them.
+!Omnilingua-MaXIFE/**/*.wav

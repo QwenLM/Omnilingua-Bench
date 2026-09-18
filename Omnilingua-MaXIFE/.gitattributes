@@ -1,0 +1,7 @@
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.flac filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+
+# prompt_template.py embeds the judge prompts as triple-quoted CRLF strings, so
+# normalizing line endings would change the prompt text sent to the judge.
+*.py -text
